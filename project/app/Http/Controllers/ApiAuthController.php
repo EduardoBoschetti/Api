@@ -22,11 +22,13 @@ class ApiAuthController extends Controller
             $user = ApiCrud::where('email', $request->email)->first();
             $authToken = $user->createToken('auth_token');
 
-            return response()->json(['data'=>['toekn'=>$authToken->plainTextToken]]);
-    }
+            return response()->json(['data'=>['token'=>$authToken->plainTextToken]]);
+    }   
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();;
+
+        return ['Sistema'=>['Voce foi delogado com sucesso!']];
     }
 }

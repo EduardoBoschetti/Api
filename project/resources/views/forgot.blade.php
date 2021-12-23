@@ -1,0 +1,1 @@
+Clique <a href="http://127.0.0.1:8000/reset-password/{{$token}}">AQUI</a> para redefinir a senha!

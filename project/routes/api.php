@@ -5,9 +5,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuthController;
 use App\Http\Controllers\ApiRegisterController;
+use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\TAuthController;
 use App\Mail\UserApiMail;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +40,9 @@ Route::prefix('auth')->group(function(){
     Route::post('logout', [ApiAuthController::class, 'logout'])->middleware('auth:sanctum');
     
 });
+
+Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword']);
+Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
  
 
 
