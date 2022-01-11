@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiAuthController;
 use App\Http\Controllers\ApiRegisterController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\TAuthController;
 use App\Mail\UserApiMail;
@@ -27,11 +28,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('/data', ApiCrudController::class)
-        ->only('store', 'update', 'index','show')->middleware('auth:sanctum');
+Route::apiResource('/data', ApiCrudController::class);
+        //->only('store', 'update', 'index','show')->middleware('auth:sanctum');
         
-Route::delete('/data/{id}', [ApiCrudController::class, 'destroy'])
-        ->middleware('auth:sanctum');
+Route::delete('/data/{id}', [ApiCrudController::class, 'destroy']);
+        //->middleware('auth:sanctum');
 
 //Auth Route    
 
@@ -43,6 +44,9 @@ Route::prefix('auth')->group(function(){
 
 Route::post('/forgot-password', [ResetPasswordController::class, 'forgotPassword']);
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']);
+
+Route::post('/user/data', [Controller::class, 'dataUser']);
+Route::get('/user/{id}', [ApiCrudController::class, 'dataUserNew']);
  
 
 

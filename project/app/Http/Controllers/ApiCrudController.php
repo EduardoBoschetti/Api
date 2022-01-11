@@ -57,4 +57,5 @@ class ApiCrudController extends Controller
 
         return ['Atualização' => 'O Usuario com o ID '. $id .' foi removido com sucesso...'];
     }
+    
 }

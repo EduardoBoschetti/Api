@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\ApiRuleFullNome;
 use Illuminate\Validation\Rules\Password;
 
+
 class ApiRequest extends FormRequest
 {
     /**

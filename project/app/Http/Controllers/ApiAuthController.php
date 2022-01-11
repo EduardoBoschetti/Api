@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ApiCrud;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ApiAuthController extends Controller
 {
@@ -16,13 +17,22 @@ class ApiAuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (auth()->attempt($credentials)) 
-            abort(401, 'Credenciais invalidas'); 
+        //Check email
 
-            $user = ApiCrud::where('email', $request->email)->first();
-            $authToken = $user->createToken('auth_token');
+        $user = ApiCrud::where('email', $request->email)->first();
 
-            return response()->json(['data'=>['token'=>$authToken->plainTextToken]]);
+        //Check password
+
+        if(!Hash::check($request->password, $user->password))
+        {
+            return response([
+                'Sistema' => 'Credenciais Invalidas'
+            ],401);
+        }
+
+            $authToken = $user->createToken('api_token')->plainTextToken;
+
+            return response()->json(['data'=>['token'=>$authToken]]);
     }   
 
     public function logout(Request $request)
